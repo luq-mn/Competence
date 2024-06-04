@@ -26,7 +26,7 @@ if __name__ == "__main__":
         )
 
         startup_duration = round(time.time() - startup_time, 4)
-        print(f"{bot.user} is online, took {startup_duration}s\n")
+        print(f"{bot.user} is online, time taken: {startup_duration}s\n")
 
     #Cogs - Loading the scripts
     bot.load_extension("scripts.modules.tools")
