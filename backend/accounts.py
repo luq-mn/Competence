@@ -103,14 +103,14 @@ class AccountManager:
             return False # User does not exist
 
     def initialise(self, user_id):
-        if self.user_exists(user_id=user_id) == True:
-            return False # User already has an account
-        else:
+        if not self.user_exists(user_id=user_id):
             self.connection_open()
             # Initialise account for the new user
             self.cursor.execute("INSERT INTO accounts (user_id, balance, transfer_limit, transactions) VALUES (?, ?, ?, ?)", (user_id, 100, 25000, 0))
             
             self.connection_close()
+        else:
+            return False # User already has an account
 
 # Example usage:
 if __name__ == "__main__":
