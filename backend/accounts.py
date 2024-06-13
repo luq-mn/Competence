@@ -33,6 +33,7 @@ class AccountManager:
 
     # Get account balance
     def account_balance(self, user_id):
+        self.account_check(user_id)
         with sqlite3.connect(self.db_name) as conn:
             with conn:
                 cursor = conn.execute("SELECT balance FROM account WHERE user_id = ?", (user_id,))

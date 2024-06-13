@@ -3,14 +3,13 @@ from discord import ApplicationContext, Option, Embed
 from discord.ext import commands
 from discord.ext.commands import Cog
 
+from main import get_datetime
+
 from backend.accounts import AccountManager
 am = AccountManager()
 
 from backend.statistics import StatisticsTracker
 stats = StatisticsTracker()
-
-def get_datetime():
-    return datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
 # Main Class
 class Accounts(Cog):
@@ -24,7 +23,7 @@ class Accounts(Cog):
             name= "init",
             description= "Initializes your account"
         )
-        async def initliase(ctx):
+        async def initliase(ctx: ApplicationContext):
             status = am.account_check(ctx.author.id)
             if status:
                 await ctx.respond(

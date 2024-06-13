@@ -5,7 +5,7 @@ os.system("cls")
 extensions = ["utilities", "accounts"]
 
 def get_datetime():
-    return datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    return f"Timestamp: {datetime.datetime.now().strftime("%d-%m-%Y, %H:%M:%S")} (GMT+8)"
 
 # IDs to have bot administration
 admins = [813939364626169856, 706714932145815614, 871722786006138960]
