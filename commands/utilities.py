@@ -3,6 +3,9 @@ from discord import ApplicationContext, Option, Embed
 from discord.ext import commands
 from discord.ext.commands import Cog
 
+from backend.statistics import StatisticsTracker
+stats = StatisticsTracker()
+
 # Main Class
 class Utilities(Cog):
     def __init__(self, bot):
@@ -23,8 +26,7 @@ class Utilities(Cog):
             )
             .set_footer(text= f"Invoked by {ctx.author.name}")
         )
-
-        print(f"@{ctx.author.name} used ping command. Latency: {latency}ms")
+        stats.command_invoked(ctx.author.id, ctx.guild.id, "ping", f"{latency}ms")
 
     # Calculator
     @discord.slash_command(
@@ -47,7 +49,7 @@ class Utilities(Cog):
             )
             .set_footer(text= f"Invoked by {ctx.author.name}")
         )
-        print(f"@{ctx.author.name} used calculator command. {var} = {eval(var)}")
+        stats.command_invoked(ctx.author.id, ctx.guild.id, "calculator", f"{var} = {eval(var)}")
 
 # Setup Cog
 def setup(bot):
