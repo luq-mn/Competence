@@ -1,3 +1,4 @@
+# Tracks bot statistics
 import sqlite3, os, datetime
 
 class StatisticsTracker:
@@ -26,6 +27,7 @@ class StatisticsTracker:
 
     def connection_close(self):
         # Close database connection
+        self.conn.commit()
         self.conn.close()
 
     def command_invoked(self, author_id, guild_id, command, output):
@@ -35,7 +37,6 @@ class StatisticsTracker:
             INSERT INTO commands (author_id, guild_id, command, output, timestamp) 
             VALUES (?, ?, ?, ?, ?)
         """, (author_id, guild_id, command, output, datetime.datetime.now()))
-        self.conn.commit()
         print(f"Command '{command}' invoked by {author_id} in {guild_id}\n- Output: {output}")
         self.connection_close()
 
