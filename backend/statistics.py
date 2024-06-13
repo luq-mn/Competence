@@ -1,5 +1,4 @@
-import sqlite3
-import os
+import sqlite3, os, datetime
 
 class StatisticsTracker:
     def __init__(self):
@@ -12,7 +11,8 @@ class StatisticsTracker:
                 author_id TEXT,
                 guild_id TEXT,
                 command TEXT,
-                output TEXT
+                output TEXT,
+                timestamp TEXT
             )
         ''')
         self.conn.commit()
@@ -29,11 +29,12 @@ class StatisticsTracker:
         self.conn.close()
 
     def command_invoked(self, author_id, guild_id, command, output):
+        self.connection_open()
         # Track command in database
         self.cursor.execute(f"""
-            INSERT INTO commands (author_id, guild_id, command, output) 
-            VALUES (?, ?, ?, ?)
-        """, (author_id, guild_id, command, output))
+            INSERT INTO commands (author_id, guild_id, command, output, timestamp) 
+            VALUES (?, ?, ?, ?, ?)
+        """, (author_id, guild_id, command, output, datetime.datetime.now()))
         self.conn.commit()
         print(f"Command '{command}' invoked by {author_id} in {guild_id}\n- Output: {output}")
         self.connection_close()
