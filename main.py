@@ -1,7 +1,9 @@
 import discord, dotenv, os, time
 from discord import Option, Embed
-from backend.statistics import StatisticsTracker
 os.system("cls")
+
+# IDs to have bot administration
+admins = [813939364626169856, 706714932145815614]
 
 # Get the token from .env
 dotenv.load_dotenv()
@@ -34,7 +36,6 @@ if __name__ == "__main__":
     
     # Load commands
     bot.load_extension("commands.utilities")
-    bot.load_extension("commands.accounts")
 
     # Reload commands
     @bot.slash_command(
@@ -46,19 +47,31 @@ if __name__ == "__main__":
         extension: Option(str, 
                           "Extension to reload",
                           choices= [
+                              "accounts",
                               "utilities",
-                              "accounts"
                           ]) #type: ignore
     ):
-        bot.reload_extension(f"commands.{extension}")
-        await ctx.respond(
-            embed= Embed(
-                title="Extension reload",
-                color=discord.Color.green(),
-                description=f"Reloaded **{extension}** extension",
+        if ctx.author.id in admins:
+            bot.reload_extension(f"commands.{extension}")
+            await ctx.respond(
+                embed= Embed(
+                    title="Extension reload",
+                    color=discord.Color.green(),
+                    description=f"Reloaded **{extension}** extension",
+                    )
+                .set_footer(text= f"Invoked by {ctx.author.name}")
                 )
-            .set_footer(text= f"Invoked by {ctx.author.name}")
-            )
-        stats.command_invoked(ctx.author.id, ctx.guild.id, "reload", f"Reloaded {extension} command")
+            stats.command_invoked(ctx.author.id, ctx.guild.id, "reload", f"Reloaded {extension} command")
+
+        else:
+            await ctx.respond(
+                embed= Embed(
+                    title="Access denied",
+                    color=discord.Color.red(),
+                    description= "You are not listed in bot admins."
+                    )
+                .set_footer(text= f"Invoked by {ctx.author.name}")
+                )
+            stats.command_invoked(ctx.author.id, ctx.guild.id, "reload", "Access denied")
 
     bot.run(token) # Run the bot
