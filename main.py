@@ -47,9 +47,9 @@ if __name__ == "__main__":
         bot.reload_extension(f"commands.{extension}")
         await ctx.respond(
             embed= Embed(
-                title="Command reload",
+                title="Extension reload",
                 color=discord.Color.green(),
-                description=f"Reloaded {extension} extension",
+                description=f"Reloaded **{extension}** extension",
                 )
             .set_footer(text=f"Invoked by {ctx.author.name}")
             )

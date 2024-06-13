@@ -24,18 +24,17 @@ class Utilities(Cog):
             
             await ctx.respond(
                 embed= Embed(
-                title= member.name,
-                color= discord.Color.green(),
-                description= "User info:"
+                    title= member.name,
+                    color= discord.Color.green(),
+                    description= "Basic information about the user."
                 )
                 .add_field(name= "Nickname", value= member.display_name, inline= True)
                 .add_field(name= "ID", value= member.id, inline= True)
                 .add_field(name= "\u200b", value= "\u200b")
-                .add_field(name= "Joined", value= member.joined_at, inline= True)
-                .add_field(name= "Created", value= member.created_at, inline= True)
+                .add_field(name= "Joined server (UTC)", value= member.joined_at, inline= True)
+                .add_field(name= "Created account (UTC)", value= member.created_at, inline= True)
                 .add_field(name= "\u200b", value= "\u200b")
                 .add_field(name= "Roles", value= len(member.roles), inline= True)
-                .add_field(name= "Status", value= member.status, inline= True)
 
                 .set_footer(text= f"Invoked by {ctx.author.name}")
             )
@@ -50,9 +49,9 @@ class Utilities(Cog):
         latency = round(self.bot.latency * 1000)
         await ctx.respond(
             embed= Embed(
-            title= ":ping_pong: Pong!",
-            color= discord.Color.green(),
-            description= f"Latency: {latency}ms"
+                title= ":ping_pong: Pong!",
+                color= discord.Color.green(),
+                description= f"Latency: {latency}ms"
             )
             .set_footer(text= f"Invoked by {ctx.author.name}")
         )
@@ -73,9 +72,9 @@ class Utilities(Cog):
         var = f"{num1} {operation} {num2}"
         await ctx.respond(
             embed= Embed(
-            title= "Calculator",
-            color= discord.Color.green(),
-            description= f"Result: {var} = {eval(var)}"
+                title= "Calculator",
+                color= discord.Color.green(),
+                description= f"Result: {var} = {eval(var)}"
             )
             .set_footer(text= f"Invoked by {ctx.author.name}")
         )
