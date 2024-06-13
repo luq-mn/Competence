@@ -34,6 +34,7 @@ if __name__ == "__main__":
     
     # Load commands
     bot.load_extension("commands.utilities")
+    bot.load_extension("commands.accounts")
 
     # Reload commands
     @bot.slash_command(
@@ -42,7 +43,12 @@ if __name__ == "__main__":
     )
     async def reload(
         ctx: discord.ApplicationContext,
-        extension: Option(str, "Extension to reload", choices=["utilities"]) #type: ignore
+        extension: Option(str, 
+                          "Extension to reload",
+                          choices= [
+                              "utilities",
+                              "accounts"
+                          ]) #type: ignore
     ):
         bot.reload_extension(f"commands.{extension}")
         await ctx.respond(
@@ -51,7 +57,7 @@ if __name__ == "__main__":
                 color=discord.Color.green(),
                 description=f"Reloaded **{extension}** extension",
                 )
-            .set_footer(text=f"Invoked by {ctx.author.name}")
+            .set_footer(text= f"Invoked by {ctx.author.name}")
             )
         stats.command_invoked(ctx.author.id, ctx.guild.id, "reload", f"Reloaded {extension} command")
 

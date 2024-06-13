@@ -1,9 +1,9 @@
 import sqlite3, os, datetime
-from transactions import TranscationsTracker
+from .transactions import TransactionsTracker
 
 class AccountManager:
     def __init__(self):
-        self.tt = TranscationsTracker()
+        self.tt = TransactionsTracker()
 
         # Initialize database connection
         self.connection_open()
@@ -51,9 +51,9 @@ class AccountManager:
                 return "ERR" # Not enough balance
             
             else:
-                # Check if amount higher than limit
-                if amount > self.get_balance(user_id=sender_id):
-                    return "ERR" # Amount higher than transfer limit
+                # Check if amount higher than transfer limit (stored in database)
+                if self.get_balance(user_id=sender_id) - amount > self.get_transfer_limit(user_id=sender_id):
+                    return "ERR" # Transfer limit exceeded
                 
                 else:
                     self.connection_open()
@@ -69,7 +69,7 @@ class AccountManager:
                     self.tt.transaction_record(sender_id, receiver_id, amount, description, datetime.datetime.now())
 
         else:
-            return "ERR" # User does not exist
+            return False # User does not exist
     
     def get_balance(self, user_id):
         # Get balance of a user
@@ -81,7 +81,7 @@ class AccountManager:
             self.connection_close()
             return data
         else:
-            return "ERR" # User does not exist
+            return False # User does not exist
     
     def set_balance(self, user_id, amount):
         if self.user_exists(user_id=user_id) == True:
@@ -90,12 +90,21 @@ class AccountManager:
             self.cursor.execute("UPDATE accounts SET balance = ? WHERE user_id = ?", (amount, user_id))
             self.connection_close()
         else:
-            return "ERR" # User does not exist
+            return False # User does not exist
     
+    def get_transfer_limit(self, user_id):
+        # Get transfer limit of a user
+        if self.user_exists(user_id=user_id) == True:
+            self.connection_open()
+            self.cursor.execute("SELECT transfer_limit FROM accounts where user_id=?", (user_id))
+            self.connection_close()
+            return self.cursor.fetchone()[0]
+        else:
+            return False # User does not exist
 
     def initialise(self, user_id):
         if self.user_exists(user_id=user_id) == True:
-            return "ERR" # User already has an account
+            return False # User already has an account
         else:
             self.connection_open()
             # Initialise account for the new user

@@ -1,7 +1,7 @@
 # Tracks transactions related metric
 import sqlite3, os, datetime
 
-class TranscationsTracker:
+class TransactionsTracker:
     def __init__(self):
         # Initialize database connection
         self.connection_open()
@@ -43,4 +43,4 @@ class TranscationsTracker:
 
 # Example usage:
 if __name__ == "__main__":
-    tracker = TranscationsTracker()
+    tracker = TransactionsTracker()
