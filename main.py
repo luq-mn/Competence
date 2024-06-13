@@ -1,21 +1,24 @@
-import discord, dotenv, os, time
+import discord, dotenv, os, time, datetime
 from discord import Option, Embed
 os.system("cls")
 
+extensions = ["utilities", "accounts"]
+
+def get_datetime():
+    return datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
 # IDs to have bot administration
-admins = [813939364626169856, 706714932145815614]
+admins = [813939364626169856, 706714932145815614, 871722786006138960]
 
 # Get the token from .env
 dotenv.load_dotenv()
 token = os.getenv("BOT_TOKEN")
 
-# Time logs
 time_log = {"start": None, "ready": None}
 
 # Main
 if __name__ == "__main__":
     bot = discord.Bot()
-    stats = StatisticsTracker()
 
     # On bot startup
     time_log["start"] = time.time()
@@ -35,7 +38,8 @@ if __name__ == "__main__":
         print(f"Bot logged in as {bot.user} in {time_log['ready']} seconds")
     
     # Load commands
-    bot.load_extension("commands.utilities")
+    for extension in extensions:
+        bot.load_extension(f"commands.{extension}")
 
     # Reload commands
     @bot.slash_command(
@@ -44,34 +48,30 @@ if __name__ == "__main__":
     )
     async def reload(
         ctx: discord.ApplicationContext,
-        extension: Option(str, 
-                          "Extension to reload",
-                          choices= [
-                              "accounts",
-                              "utilities",
-                          ]) #type: ignore
+        extension: Option(str,"Extension to reload", choices= extensions) #type: ignore
     ):
         if ctx.author.id in admins:
+            # Author is listed in admins
             bot.reload_extension(f"commands.{extension}")
             await ctx.respond(
                 embed= Embed(
                     title="Extension reload",
                     color=discord.Color.green(),
                     description=f"Reloaded **{extension}** extension",
-                    )
-                .set_footer(text= f"Invoked by {ctx.author.name}")
                 )
-            stats.command_invoked(ctx.author.id, ctx.guild.id, "reload", f"Reloaded {extension} command")
+                .set_footer(text= get_datetime())
+            )
 
         else:
+            # Author has no authorize
             await ctx.respond(
                 embed= Embed(
                     title="Access denied",
                     color=discord.Color.red(),
                     description= "You are not listed in bot admins."
-                    )
-                .set_footer(text= f"Invoked by {ctx.author.name}")
                 )
-            stats.command_invoked(ctx.author.id, ctx.guild.id, "reload", "Access denied")
+                .set_footer(text= get_datetime())
+            )
 
-    bot.run(token) # Run the bot
+    # Run the bot
+    bot.run(token)

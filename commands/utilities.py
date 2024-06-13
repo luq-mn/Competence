@@ -1,7 +1,8 @@
 import discord, datetime
 from discord import ApplicationContext, Option, Embed
-from discord.ext import commands
 from discord.ext.commands import Cog
+
+from main import get_datetime
 
 from backend.statistics import StatisticsTracker
 stats = StatisticsTracker()
@@ -36,9 +37,11 @@ class Utilities(Cog):
                 .add_field(name= "\u200b", value= "\u200b")
                 .add_field(name= "Roles", value= len(member.roles), inline= True)
 
-                .set_footer(text= f"Invoked by {ctx.author.name}")
+                .set_footer(text= get_datetime())
             )
-            stats.command_invoked(ctx.author.id, ctx.guild.id, "user_info", f"{member.display_name, member.id, member.joined_at, member.created_at, len(member.roles), member.status, member.bot}")
+            stats.command_log(ctx.author.id, "user info", 
+                f"Nickname: {member.display_name}, ID: {member.id}, Joined server (UTC): {member.joined_at}, Created account (UTC): {member.created_at}, Roles: {len(member.roles)}"
+            )
 
     # Ping
     @discord.slash_command(
@@ -53,9 +56,9 @@ class Utilities(Cog):
                 color= discord.Color.green(),
                 description= f"Latency: {latency}ms"
             )
-            .set_footer(text= f"Invoked by {ctx.author.name}")
+            .set_footer(text= get_datetime())
         )
-        stats.command_invoked(ctx.author.id, ctx.guild.id, "ping", f"{latency}ms")
+        stats.command_log(ctx.author.id, "ping", f"Latency: {latency}ms")
 
     # Calculator
     @discord.slash_command(
@@ -76,9 +79,9 @@ class Utilities(Cog):
                 color= discord.Color.green(),
                 description= f"Result: {var} = {eval(var)}"
             )
-            .set_footer(text= f"Invoked by {ctx.author.name}")
+            .set_footer(text= get_datetime())
         )
-        stats.command_invoked(ctx.author.id, ctx.guild.id, "calculator", f"{var} = {eval(var)}")
+        stats.command_log(ctx.author.id, "calculator", f"{var} = {eval(var)}")
 
 # Setup Cog
 def setup(bot):
