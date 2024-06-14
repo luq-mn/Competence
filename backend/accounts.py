@@ -8,7 +8,7 @@ class AccountManager:
         # Create the account table if it doesn't exist
         with sqlite3.connect(self.db_name) as conn:
             with conn:
-                conn.execute("CREATE TABLE IF NOT EXISTS account (user_id INTEGER PRIMARY KEY, balance FLOAT, transfer_limit INTEGER, flag TEXT)")
+                conn.execute("CREATE TABLE IF NOT EXISTS account (user_id INTEGER PRIMARY KEY, balance FLOAT, tier INTEGER, flag TEXT)")
                 conn.commit()
     
     # Check if an account exists
@@ -28,7 +28,7 @@ class AccountManager:
     def account_init(self, user_id):
         with sqlite3.connect(self.db_name) as conn:
             with conn:
-                conn.execute("INSERT INTO account (user_id, balance, transfer_limit, flag) VALUES (?, ?, ?, ?)", (user_id, 100, 50000, "clear"))
+                conn.execute("INSERT INTO account (user_id, balance, tier, flag) VALUES (?, ?, ?, ?)", (user_id, 100, 1, "clear"))
                 conn.commit()
 
     # Get account balance
