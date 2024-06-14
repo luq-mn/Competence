@@ -3,7 +3,7 @@ from discord import Option, Embed
 os.system("cls")
 
 def get_datetime():
-    return f"Timestamp: {datetime.datetime.now().strftime("%d-%m-%Y, %H:%M:%S")} (GMT+8)"
+    return f"""Timestamp: {datetime.datetime.now().strftime("%d-%m-%Y, %H:%M:%S")} (GMT+8)"""
 
 # IDs to have bot administration
 admins = [813939364626169856, 706714932145815614, 871722786006138960]
