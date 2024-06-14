@@ -1,8 +1,15 @@
 # Competence
 
-Economy/currency focused Discord bot, with virtual stock markets, trades and investments.
+An economy/currency focused Discord bot, made as a fun part-time project, using the [pycord](https://pycord.dev/) and built-in SQLite3 Python libraries.
+
+> [!WARNING]
+> This bot is under active development, and may not be functioning as intended. Expect regularmajorsignificant changes/overhauls.
 
 ## Features
+
+Each feature is its own Cog-based extension, and can be reloaded without the bot restarting*.
+
+----
 
 ### Account
 
@@ -12,11 +19,11 @@ An account is stored at the Competence database, with your user ID as the primar
 
 Competence features flags on accounts, which allows certain users to fall under certain restrictions if necessary. Below are the list of flags and their description.
 
-- **Master** - Competence accounts, only accessible via the backend or any users listed as bot admins. These accounts has no transfer limits, and its id are not based on any user.
-- **Clear** - Default flag. No restrictions, normal account.
-- **Watchlist** - No restrictions, but this flag means you are being watched by the admins.
-- **Restrict** - Transfer limit reduced to 10%, only transferring/receiving money is allowed.
-- **Blacklist** - Account is banned from using the bot's economy/currency features.
+- **master** - Competence accounts, only accessible via the backend or any users listed as bot admins. These accounts has no transfer limits, and its id are not based on any user.
+- **clear** - Default flag. No restrictions, normal account.
+- **watchlist** - No restrictions, but this flag means you are being watched by the admins.
+- **restrict** - Transfer limit reduced to 10%, only transferring/receiving money is allowed.
+- **blacklist** - Account is banned from using the bot's economy/currency features.
 
 #### Commands
 
@@ -27,6 +34,12 @@ Initialize your account. Invoking a command that requires access to your account
 `account balance`
 
 Check for your the balance of your account.
+
+`account transfer [receiver_id] [amount]`
+
+Transfer money to another account. Subject to 2% transfer fee.
+
+----
 
 ### Utility
 
@@ -46,11 +59,5 @@ Check the bot's latency.
 
 ## Notes
 
+- The bot still requires a restart to load in new extensions.
 - Commands invoked to this bot are logged and stored in a database. The database stores your user ID, guild ID, command used and the output.
-- Types of flags on your account:
-**Master** (Competence account, has no owner)
-**Clear** (no restrictions, normal account),
-**Watchlist** (clear, but this flag is not good.),
-**Restrict** (transfer limit reduced to 10%, only transferring/receiving money is allowed.),
-**Blacklist** (account is banned from using the bot).
-- Each account has a default transfer limit of **$50000**.
