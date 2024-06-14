@@ -76,7 +76,7 @@ Allows you to buy, trade and sell properties. All accounts initializes with a st
 
 #### Property Value Mechanic
 
-All properties from the store is held by master account 1. This account also purchases the properties you are selling, for 90% of the total value. There are a **limited** amount of property, with each purchase decreasing the supply and incrementing the market price by 0.5%. You can also **build** properties, but each new property built decreases the market price by 0.5%. The value of your owned properties increase by 0.25% each day.
+All properties from the store is held by master account 1. This account also purchases the properties you are selling, for 90% of the total value. There are a **limited** amount of property, with each purchase decreasing the supply and incrementing the market price by 0.5%.
 
 #### Property commands
 
