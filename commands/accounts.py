@@ -69,7 +69,7 @@ class Accounts(Cog):
         )
         async def transfer(
             ctx: ApplicationContext,
-            user: Option(discord.User, description= "Select a user", required= True), # type: ignore
+            user: Option(discord.Member, description= "Select a user", required= True), # type: ignore
             amount: Option(float, description= "Enter amount", required= True), # type: ignore
             note: Option(str, description= "Add note to this transaction", required= False) # type: ignore
         ):
@@ -86,6 +86,8 @@ class Accounts(Cog):
                     )
                     .add_field(name= "Recipient", value= user.mention, inline= True)
                     .add_field(name= "Amount", value= f"${amount}", inline= True)
+                    .add_field(name= "\u200b", value= "\u200b")
+                    .add_field(name= "Note", value= note)
 
                     .set_footer(text= get_datetime())
                 )
@@ -100,6 +102,8 @@ class Accounts(Cog):
                     )
                     .add_field(name= "Recipient", value= user.mention, inline= True)
                     .add_field(name= "Amount", value= f"${amount}", inline= True)
+                    .add_field(name= "\u200b", value= "\u200b")
+                    .add_field(name= "Note", value= note)
 
                     .set_footer(text= get_datetime())
                 )
@@ -114,6 +118,8 @@ class Accounts(Cog):
                     )
                     .add_field(name= "Recipient", value= user.mention, inline= True)
                     .add_field(name= "Amount", value= f"${amount}", inline= True)
+                    .add_field(name= "\u200b", value= "\u200b")
+                    .add_field(name= "Note", value= note)
 
                     .set_footer(text= get_datetime())
                 )

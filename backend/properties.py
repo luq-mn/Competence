@@ -4,7 +4,7 @@ import sqlite3
 
 class PropertiesManager:
     def __init__(self):
-        self.db_name = "backend/database/game.db"
+        self.db_name = "backend/database/economy.db"
 
         with sqlite3.connect(self.db_name) as conn:
             with conn:

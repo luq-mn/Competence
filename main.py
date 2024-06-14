@@ -2,8 +2,6 @@ import discord, dotenv, os, time, datetime
 from discord import Option, Embed
 os.system("cls")
 
-extensions = ["utilities", "accounts"]
-
 def get_datetime():
     return f"Timestamp: {datetime.datetime.now().strftime("%d-%m-%Y, %H:%M:%S")} (GMT+8)"
 
@@ -14,10 +12,10 @@ admins = [813939364626169856, 706714932145815614, 871722786006138960]
 dotenv.load_dotenv()
 token = os.getenv("BOT_TOKEN")
 
-time_log = {"start": None, "ready": None}
-
 # Main
 if __name__ == "__main__":
+    extensions = ["utilities", "accounts"]
+    time_log = {"start": None, "ready": None}
     bot = discord.Bot()
 
     # On bot startup
@@ -41,37 +39,36 @@ if __name__ == "__main__":
     for extension in extensions:
         bot.load_extension(f"commands.{extension}")
 
-    # Reload commands
-    @bot.slash_command(
-        name="reload",
-        description="Reload an extension"
-    )
-    async def reload(
-        ctx: discord.ApplicationContext,
-        extension: Option(str,"Extension to reload", choices= extensions) #type: ignore
-    ):
+    # Master command
+    @bot.slash_command(name="master", description= "Competence master commands")
+    async def reload(ctx: discord.ApplicationContext, cmd: Option(str,"Enter master command", required= True)): # type: ignore
+        # Check if invoker is an admin
         if ctx.author.id in admins:
-            # Author is listed in admins
-            bot.reload_extension(f"commands.{extension}")
-            await ctx.respond(
-                embed= Embed(
-                    title="Extension reload",
-                    color=discord.Color.green(),
-                    description=f"Reloaded **{extension}** extension",
-                )
-                .set_footer(text= get_datetime())
-            )
-
+            try:
+                # Load extension
+                if cmd.startswith("load"):
+                    _, extension = cmd.split()
+                    bot.load_extension(f"commands.{extension}")
+                # Reload extension
+                elif cmd.startswith("reload"):
+                    _, extension = cmd.split()
+                    bot.reload_extension(f"commands.{extension}")
+                # Unload extension
+                elif cmd.startswith("unload"):
+                    _, extension = cmd.split()
+                    bot.unload_extension(f"commands.{extension}")
+                # Not such command
+                else:
+                    await ctx.respond(f"{cmd} is not a valid command. Maybe you fucked up a parameter?")
+                    return
+                # Success
+                await ctx.respond("Master command executed successfully.")
+            except Exception as err:
+                # Error
+                await ctx.respond(f"**Error**: {err}")
         else:
             # Author has no authorize
-            await ctx.respond(
-                embed= Embed(
-                    title="Access denied",
-                    color=discord.Color.red(),
-                    description= "You are not listed in bot admins."
-                )
-                .set_footer(text= get_datetime())
-            )
+            await ctx.respond("You are not authorised to use this command.")
 
     # Run the bot
     bot.run(token)
