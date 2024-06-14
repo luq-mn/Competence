@@ -58,19 +58,17 @@ Master accounts are accounts used by Competence. Unlike other accounts which use
 
 `account init` - Initializes your account. Invoking a command that requires access to your account will also initialize an account for you, if you have not done so.
 
-`account overview` - Shows an overview of your account, the balance, debt (total, interest, days), coins and amount of properties.
+WIP - `account overview` - Shows an overview of your account, the balance, debt (total, interest, days), coins and amount of properties.
 
 `account balance [type]` - Check for the balance of your account. Select between balance of coin or currency.
 
 `account transfer [receiver_id] [amount]` - Transfer money to another account. Subject to transfer fees based on your account's [tier](#different-tiers-for-your-account).
 
-`account reset` - Reset your account to its default state.
-
-`account upgrade` - Opens the upgrade menu.
+WIP - `account upgrade` - Opens the upgrade menu.
 
 ----
 
-### Property
+### Property (WIP)
 
 Allows you to buy, trade and sell properties. All accounts initializes with a starter house included, which can be sold for a quick buck. You can collect daily rent from the properties you own.
 
@@ -110,3 +108,10 @@ Despite being an economy/currency focused bot, Competence provides you with basi
 
 - The bot still requires a restart to load in new extensions.
 - Commands invoked to this bot are logged and stored in a database. The database stores your user ID, guild ID, command used and the output.
+
+### To-do
+
+- [] Account overview, upgrade
+- [] Enforce transfer cooldown, and flagging
+- [] Property backend
+- [] Property commands
