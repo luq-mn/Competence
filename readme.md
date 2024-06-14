@@ -111,7 +111,7 @@ Despite being an economy/currency focused bot, Competence provides you with basi
 
 ### To-do
 
-- [] Account overview, upgrade
-- [] Enforce transfer cooldown, and flagging
-- [] Property backend
-- [] Property commands
+- [ ] Account overview, upgrade
+- [ ] Enforce transfer cooldown, and flagging
+- [ ] Property backend
+- [ ] Property commands
