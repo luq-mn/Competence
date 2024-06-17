@@ -46,6 +46,28 @@ class Accounts(Cog):
                 stats.command_log(ctx.author.id, "account init", "Account initialized")
         
         @account.command(
+                name= "overview",
+                description= "An overview of your account"
+        )
+        async def overview(ctx: ApplicationContext):
+            balance = am.account_balance(ctx.author.id)
+            details = am.account_tier(ctx.author.id)
+
+            await ctx.respond(
+                embed= Embed(
+                    title= "Account overview",
+                    description= f"Overview of {ctx.author.mention}'s account",
+                    color= discord.Color.green()
+                )
+                .add_field(name= "Balance", value= f"${balance}")
+                .add_field(name= "Tier", value= details["tier"])
+
+                .set_footer(text= get_datetime())
+            )
+            stats.command_log(ctx.author.id, "account overview", f"Account overviewed for {ctx.author.name}")
+            
+
+        @account.command(
                 name= "balance",
                 description= "Check your account's balance"
         )
