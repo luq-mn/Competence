@@ -5,9 +5,9 @@ from discord.ext.commands import Cog
 
 from main import get_datetime
 
+# Backend
 from backend.accounts import AccountManager
 am = AccountManager()
-
 from backend.statistics import StatisticsTracker
 stats = StatisticsTracker()
 
@@ -19,10 +19,8 @@ class Accounts(Cog):
         # User command group
         account = bot.create_group("account", "Everything related to an account.")
 
-        @account.command(
-            name= "init",
-            description= "Initializes your account"
-        )
+# Initialize
+        @account.command(name= "init", description= "Initializes your account")
         async def initliase(ctx: ApplicationContext):
             status = am.account_check(ctx.author.id)
             if status:
@@ -44,11 +42,9 @@ class Accounts(Cog):
                     .set_footer(text= get_datetime())
                 )
                 stats.command_log(ctx.author.id, "account init", "Account initialized")
-        
-        @account.command(
-                name= "overview",
-                description= "An overview of your account"
-        )
+
+# Overview
+        @account.command(name= "overview", description= "An overview of your account")
         async def overview(ctx: ApplicationContext):
             balance = am.account_balance(ctx.author.id)
             details = am.account_tier(ctx.author.id)
@@ -59,18 +55,21 @@ class Accounts(Cog):
                     description= f"Overview of {ctx.author.mention}'s account",
                     color= discord.Color.green()
                 )
-                .add_field(name= "Balance", value= f"${balance}")
-                .add_field(name= "Tier", value= details["tier"])
+                .add_field(name= "Balance", value= f"${balance}", inline= True)
+                .add_field(name= "Tier", value= details["tier"], inline= True)
+                .add_field(name= "\u200b", value= "\u200b")
+                .add_field(name= "Transfer limit", value= f"${details['transfer_limit']}", inline= True)
+                .add_field(name= "Transfer fee (per transaction)", value= f"{details['transfer_fee'] * 100}%", inline= True)
+                .add_field(name= "\u200b", value= "\u200b")
+                .add_field(name= "Debt limit", value= f"${details['debt_limit']}", inline= True)
+                .add_field(name= "Debt interest", value= f"{details['debt_interest'] * 100}%")
 
                 .set_footer(text= get_datetime())
             )
             stats.command_log(ctx.author.id, "account overview", f"Account overviewed for {ctx.author.name}")
             
-
-        @account.command(
-                name= "balance",
-                description= "Check your account's balance"
-        )
+# Balance
+        @account.command(name= "balance", description= "Check your account's balance")
         async def balance(ctx: ApplicationContext):
             balance = am.account_balance(ctx.author.id)
 
@@ -85,10 +84,8 @@ class Accounts(Cog):
             )
             stats.command_log(ctx.author.id, "account balance", f"Account balance: ${balance}")
 
-        @account.command(
-            name= "transfer",
-            description= "Transfer money to another user"
-        )
+# Transfer
+        @account.command(name= "transfer", description= "Transfer money to another user")
         async def transfer(
             ctx: ApplicationContext,
             user: Option(discord.Member, description= "Select a user", required= True), # type: ignore
