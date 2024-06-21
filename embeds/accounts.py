@@ -9,7 +9,7 @@ class AccountEmbeds:
     def initialise(self, ctx, initialised: bool):
         if initialised: # Account initialised
             embed = (Embed(
-                title= "Initialise",
+                title= "Account initialisation",
                 description= f"{ctx.author.mention}'s account has been manually initialised.",
                 color= discord.Color.brand_green()
             )
@@ -20,7 +20,7 @@ class AccountEmbeds:
         
         else: # Account already exists
             embed = (Embed(
-                title= "Initialise",
+                title= "Account initialisation",
                 description= f"Failed to initialise, {ctx.author.mention}'s account already exists.",
                 color= discord.Color.brand_red()
             )
@@ -32,8 +32,8 @@ class AccountEmbeds:
     # Overview
     def overview(self, ctx, flag, tier, access, xp):
         embed = (Embed(
-            title= "Overview",
-            description= f"{ctx.author.mention}'s account overview",
+            title= "Account overview",
+            description= f"{ctx.author.mention}'s account overview.",
             color= discord.Color.light_gray()
         )
         .add_field(name= "Flag", value= flag, inline= True)
