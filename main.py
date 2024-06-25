@@ -14,8 +14,13 @@ if __name__ == "__main__":
     time_log = {"start": None, "ready": None}
     bot = bridge.Bot(command_prefix= config["prefix"], intents= discord.Intents.all())
 
+    #Load commands
+    for extension in config["extensions"]:
+        bot.load_extension(f"commands.{extension}")
+
     #On bot startup
     time_log["start"] = time.time()
+
     @bot.event
     async def on_ready():
         #Setting the bot status
@@ -26,10 +31,6 @@ if __name__ == "__main__":
                 name= "with your life."
             )
         )
-
-        #Load commands
-        for extension in config["extensions"]:
-            bot.load_extension(f"commands.{extension}")
 
         #Logging
         time_log["ready"] = round(time.time() - time_log["start"], 4)

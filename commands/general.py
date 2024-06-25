@@ -1,4 +1,5 @@
 import discord
+import embeds.general as embeds
 from discord.ext import bridge, commands
 
 #Backend
@@ -17,9 +18,7 @@ class General(commands.Cog):
     @bridge.BridgeExtCommand
     async def ping(self, ctx: bridge.BridgeContext):
         # Get the bot latency
-        await ctx.respond(f"Pong! {round(self.bot.latency * 1000)}ms")
-    
-    #Info
-    
+        await ctx.respond(embed= embeds.ping(ctx))
+
 def setup(bot):
     bot.add_cog(General(bot))

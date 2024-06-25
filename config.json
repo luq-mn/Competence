@@ -1,6 +1,7 @@
 {
     "extensions": [
-        "general"
+        "general",
+        "master"
     ],
     "admins": [
         813939364626169856,
@@ -11,6 +12,11 @@
         "status": "do_not_disturb",
         "type": "playing",
         "name": "with your life."
+    },
+    "log": {
+        "servers": 1255163259384893532,
+        "transactions": 1255168474398068819,
+        "errors": 1255171574328332408
     },
     "prefix": "$"
 }
