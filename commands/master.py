@@ -1,26 +1,25 @@
 import discord
 from discord.ext import commands
 
-from embeds.master import MasterEmbeds
+from embeds.general import MasterEmbeds
 
-
-class MyCog(commands.Cog):
+class Master(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    # Ping
-    @commands.command(name= "ping")
-    async def ping(self, ctx, *, message: str):
-        await ctx.send(embed= MasterEmbeds.ping(self.bot.latency * 1000))
+        # Ping
+        @bot.command(name= "ping")
+        async def ping(self, ctx):
+            await ctx.send(embed= MasterEmbeds.ping(self.bot.latency * 1000))
 
-    # Reload extension
-    @commands.command(name= "reload")
-    async def reload(self, ctx, *, extension: str):
-        try:
-            self.bot.reload_extension(f"commands.{extension}")
-            await ctx.send(MasterEmbeds.reload(extension, True))
-        except Exception as err:
-            await ctx.send(MasterEmbeds.reload(err))
+        # Reload extension
+        @bot.command(name= "reload")
+        async def reload(self, ctx, *, extension: str):
+            try:
+                self.bot.reload_extension(f"commands.{extension}")
+                await ctx.send(MasterEmbeds.reload(extension, True))
+            except Exception as err:
+                await ctx.send(MasterEmbeds.reload(err))
 
 
 # import discord, datetime, subprocess
@@ -88,6 +87,6 @@ class MyCog(commands.Cog):
         
 #         @bot.command()
 
-# # Setup Cog
-# def setup(bot):
-#     bot.add_cog(Master(bot))
+# Setup Cog
+def setup(bot):
+    bot.add_cog(Master(bot))

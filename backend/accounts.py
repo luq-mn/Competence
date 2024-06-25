@@ -5,7 +5,7 @@ stats = StatisticsTracker()
 
 class AccountManager:
     def __init__(self):
-        self.db_name = f"{os.getcwd()}/database/accounts.db"
+        self.db_name = f"{os.getcwd()}/backend/database/accounts.db"
 
         # Create the account table if it doesn't exist
         with sqlite3.connect(self.db_name) as conn:
@@ -25,20 +25,17 @@ class AccountManager:
                     return True
                 # If account doesn't exist
                 else:
-                    self.account_init(user_id)
+                    self.init(user_id)
                     return False   
 
 # Initialise account
     def init(self, user_id):
-        if not self.is_exists(user_id):
-            with sqlite3.connect(self.db_name) as conn:
-                with conn:
-                    conn.execute("INSERT INTO users (user_id, flag, tier, access, xp) VALUES (?, ?, ?, ?, ?)", (user_id, "clear", 1, "default", 0))
-                    conn.execute("INSERT INTO currency (user_id, balance) VALUES (?, ?)", (user_id, 0))
-                    conn.commit()
-                    return True
-        else:
-            return False
+        with sqlite3.connect(self.db_name) as conn:
+            with conn:
+                conn.execute("INSERT INTO users (user_id, flag, tier, access, xp) VALUES (?, ?, ?, ?, ?)", (user_id, "clear", 1, "default", 0))
+                conn.execute("INSERT INTO currency (user_id, balance) VALUES (?, ?)", (user_id, 0))
+                conn.commit()
+                return True
 
 # Get account data
     def get_data(self, user_id):

@@ -1,0 +1,16 @@
+{
+    "extensions": [
+        "general"
+    ],
+    "admins": [
+        813939364626169856,
+        706714932145815614,
+        871722786006138960
+    ],
+    "presence": {
+        "status": "do_not_disturb",
+        "type": "playing",
+        "name": "with your life."
+    },
+    "prefix": "$"
+}
