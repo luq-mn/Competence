@@ -1,3 +1,2 @@
 py-cord[speed]
-dotenv
-sqlite3
+python-dotenv
