@@ -18,7 +18,7 @@ def ping(ctx):
     embed = (
         Embed(
             title= ":ping_pong: Pong!",
-            description= f"Bot latency: {round(ctx.bot.latency * 1000)}ms",
+            description= f"I fucked your mother {round(ctx.bot.latency * 1000)} milliseconds ago",
             color= discord.Color.blue()
         )
     )
