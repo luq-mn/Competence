@@ -16,14 +16,14 @@ if __name__ == "__main__":
 
     #Load commands
     for extension in config["extensions"]:
-        bot.load_extension(f"commands.{extension}")
+        bot.load_extension(f"scripts.cogs.{extension}")
 
     #On bot startup
     time_log["start"] = time.time()
 
     @bot.event
     async def on_ready():
-        #Setting the bot status
+        #Setting the bot presence
         await bot.change_presence(
             status= discord.Status.do_not_disturb,
             activity= discord.Activity(

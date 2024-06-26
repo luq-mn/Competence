@@ -1,6 +1,6 @@
 import discord
-import embeds.general as embeds
-from discord.ext import bridge, commands
+import scripts.embeds as embeds
+from discord.ext import commands
 
 #Backend
 # from backend.accounts import AccountManager
@@ -16,9 +16,9 @@ class General(commands.Cog):
     
     #Ping
     @discord.slash_command(name="ping", description="Get the bot latency")
-    async def ping(self, ctx: bridge.BridgeContext):
+    async def ping(self, ctx: discord.ApplicationContext):
         # Get the bot latency
-        await ctx.respond(embed= embeds.ping(ctx))
+        await ctx.respond(embed= embeds.General.ping(ctx))
 
 def setup(bot):
     bot.add_cog(General(bot))
