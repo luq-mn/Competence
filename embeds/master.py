@@ -4,17 +4,17 @@ from discord import Embed
 def server_join(guild):
     embed = (
         Embed(
-            title= "Added to new server",
+            title= "Someone accidentally pressed Join",
             color= discord.Color.brand_green()
         )
         .add_field(name= "Name", value= guild.name)
         .add_field(name= "ID", value= guild.id)
-        .add_field(name= "Owner", value= guild.owner.mention)
-        .add_field(name= "Members", value= guild.member_count)
-        .add_field(name= "Roles", value= len(guild.roles))
+        .add_field(name= "Creator", value= guild.owner.mention)
+        .add_field(name= "Dumb People", value= guild.member_count)
+        .add_field(name= "Subscriptions", value= len(guild.roles))
         .add_field(name= "Channels", value= len(guild.channels))
 
-        .set_footer(text= "A new journey awaits")
+        .set_footer(text= "why would they join this ass server lmao")
     )
 
     return embed
@@ -22,17 +22,17 @@ def server_join(guild):
 def server_leave(guild):
     embed = (
         Embed(
-            title= "Left server",
+            title= "Good riddance",
             color= discord.Color.brand_red()
         )
-        .add_field(name= "Name", value= guild.name)
+        .add_field(name= "The asshole", value= guild.name)
         .add_field(name= "ID", value= guild.id)
-        .add_field(name= "Owner", value= guild.owner.mention)
-        .add_field(name= "Members", value= guild.member_count)
-        .add_field(name= "Roles", value= len(guild.roles))
+        .add_field(name= "Creator", value= guild.owner.mention)
+        .add_field(name= "Dumb fucks", value= guild.member_count)
+        .add_field(name= "Subscriptions", value= len(guild.roles))
         .add_field(name= "Channels", value= len(guild.channels))
 
-        .set_footer(text= "Sad to see this one go")
+        .set_footer(text= "Nobody liked you")
     )
 
     return embed
@@ -40,8 +40,8 @@ def server_leave(guild):
 def cog_reload(cog):
     embed= (
         Embed(
-            title= "Cog reload",
-            description= f"{cog} has been reloaded successfully",
+            title= "Bot is shitting in its hands and smearing it on the screen",
+            description= f"{cog} has been smeared successfully",
             color= discord.Color.brand_green()
         )
         .set_footer(text= "Something new is coming?")
@@ -56,7 +56,7 @@ def code_error(error):
             description= error,
             color= discord.Color.brand_red()
         )
-        .set_footer(text= "Something went wrong")
+        .set_footer(text= "you fucked up boyo")
     )
 
     return embed
@@ -68,7 +68,7 @@ def command_not_found(error):
             description= error,
             color= discord.Color.brand_red()
         )
-        .set_footer(text= "That does NOT exist")
+        .set_footer(text= "Are you stupid")
     )
 
     return embed
@@ -76,11 +76,11 @@ def command_not_found(error):
 def command_on_cooldown(error):
     embed= (
         Embed(
-            title= "Command on cooldown",
+            title= "Get off that command brotha",
             description= error,
             color= discord.Color.brand_red()
         )
-        .set_footer(text= "Not yet brother")
+        .set_footer(text= "Not yet brotha")
     )
 
     return embed
@@ -92,7 +92,7 @@ def command_missing_arguments(error):
             description= error,
             color= discord.Color.brand_red()
         )
-        .set_footer(text= "Gotta be complete bruh")
+        .set_footer(text= "Betta go argue bitch")
     )
 
     return embed
@@ -104,7 +104,7 @@ def command_missing_permissions(error):
             description= error,
             color= discord.Color.brand_red()
         )
-        .set_footer(text= "You are not allowed to use that one!")
+        .set_footer(text= "Imagine not having permissions :skull:")
     )
 
     return embed
