@@ -15,7 +15,7 @@ class General(commands.Cog):
         self.bot = bot
     
     #Ping
-    @bridge.BridgeExtCommand
+    @discord.slash_command(name="ping", description="Get the bot latency")
     async def ping(self, ctx: bridge.BridgeContext):
         # Get the bot latency
         await ctx.respond(embed= embeds.ping(ctx))

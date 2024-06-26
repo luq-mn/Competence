@@ -41,7 +41,7 @@ def cog_reload(cog):
     embed= (
         Embed(
             title= "Cog reload",
-            description= f"{cog} has been reloaded successfully",
+            description= f"'{cog}' cog has been reloaded successfully",
             color= discord.Color.brand_green()
         )
         .set_footer(text= "Something new is coming?")

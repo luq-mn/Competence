@@ -12,7 +12,7 @@ with open("config.json", "r") as f:
 if __name__ == "__main__":
     print(f"Working directory: {os.getcwd()}")
     time_log = {"start": None, "ready": None}
-    bot = bridge.Bot(command_prefix= config["prefix"], intents= discord.Intents.all())
+    bot = discord.Bot()
 
     #Load commands
     for extension in config["extensions"]:
@@ -35,5 +35,5 @@ if __name__ == "__main__":
         #Logging
         time_log["ready"] = round(time.time() - time_log["start"], 4)
         print(f"Bot is up and running as {bot.user} after {time_log['ready']} seconds")
-
+    
     bot.run(TOKEN)
