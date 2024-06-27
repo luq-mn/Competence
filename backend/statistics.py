@@ -22,7 +22,7 @@ class StatisticsTracker:
                 conn.execute("INSERT INTO bot (action, details, timestamp) VALUES (?, ?, ?)", (action, details, get_datetime()))
                 conn.commit()
 
-                print(f"Bot action {action} with details {details} at {get_datetime()}")
+                print(f"-\nBot action [{action}] with details [{details}]\n{get_datetime()}")
 
     # Log invoked commands
     def command_log(self, user_id, command, latency):
@@ -31,7 +31,7 @@ class StatisticsTracker:
                 conn.execute("INSERT INTO commands (user_id, command, latency, timestamp) VALUES (?, ?, ?, ?)", (user_id, command, latency, get_datetime()))
                 conn.commit()
 
-                print(f"Command {command} invoked by {user_id} at {get_datetime()}")
+                print(f"-\nCommand '{command}' invoked by [{user_id}]\n{get_datetime()} | Latency: {latency}ms")
     
     # Log transactions
     def transaction_log(self, sender_id, recipient_id, amount, note):
@@ -40,4 +40,4 @@ class StatisticsTracker:
                 conn.execute("INSERT INTO transactions (sender_id, recipient_id, amount, note, timestamp) VALUES (?, ?, ?, ?, ?)", (sender_id, recipient_id, amount, note, get_datetime()))
                 conn.commit()
 
-                print(f"Transaction from {sender_id} to {recipient_id} of {amount} at {get_datetime()}")
+                print(f"-\nTransaction from [{sender_id}] to [{recipient_id}] of [{amount}]\n{get_datetime()}")
