@@ -5,7 +5,7 @@ os.system('cls' if os.name == 'nt' else 'clear')
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
-with open("config.json", "r") as f:
+with open(f"{os.getcwd()}/config.json", "r") as f:
     config = json.load(f)
 
 if __name__ == "__main__":

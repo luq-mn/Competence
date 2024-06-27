@@ -8,7 +8,7 @@ st = statistics.StatisticsTracker()
 class Master(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        with open("config.json", "r") as f:
+        with open(f"{os.getcwd()}/config.json", "r") as f:
             self.config = json.load(f)
         self.server_channel = self.bot.get_channel(self.config["logs"]["servers"])
 

@@ -1,11 +1,11 @@
-import discord, json
+import discord, json, os
 from discord.ext import commands
 import scripts.embeds as embeds
 
 from backend import statistics
 st = statistics.StatisticsTracker()
 
-with open("config.json", "r") as f:
+with open(f"{os.getcwd()}/config.json", "r") as f:
     config = json.load(f)
 
 class Events(commands.Cog):
