@@ -1,7 +1,8 @@
 {
     "extensions": [
         "general",
-        "master"
+        "master",
+        "events"
     ],
     "admins": [
         813939364626169856,

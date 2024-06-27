@@ -1,6 +1,6 @@
 import discord
-import scripts.embeds as embeds
 from discord.ext import commands
+import scripts.embeds as embeds
 
 #Backend
 # from backend.accounts import AccountManager
@@ -13,9 +13,9 @@ from discord.ext import commands
 class General(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-    
-    #Ping
-    @discord.slash_command(name="ping", description="Get the bot latency")
+
+    # Ping
+    @discord.slash_command(name = "ping", description = "Get the bot latency")
     async def ping(self, ctx: discord.ApplicationContext):
         # Get the bot latency
         await ctx.respond(embed= embeds.General.ping(ctx))

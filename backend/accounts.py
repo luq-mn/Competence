@@ -14,7 +14,7 @@ class AccountManager:
                 conn.execute("CREATE TABLE IF NOT EXISTS currency (user_id INTEGER PRIMARY KEY, balance FLOAT)")
                 conn.commit()
 
- # Check if an account exists
+    # Check if an account exists
     def is_exists(self, user_id):
         with sqlite3.connect(self.db_name) as conn:
             with conn:
@@ -26,9 +26,9 @@ class AccountManager:
                 # If account doesn't exist
                 else:
                     self.init(user_id)
-                    return False   
+                    return False
 
-# Initialise account
+    # Initialise account
     def init(self, user_id):
         with sqlite3.connect(self.db_name) as conn:
             with conn:
@@ -37,12 +37,12 @@ class AccountManager:
                 conn.commit()
                 return True
 
-# Get account data
+    # Get account data
     def get_data(self, user_id):
         self.is_exists(user_id)
         with sqlite3.connect(self.db_name) as conn:
             with conn:
-                cursor = conn.execute(f"SELECT tier FROM user WHERE user_id = {user_id}")
+                cursor = conn.execute(f"SELECT * FROM user WHERE user_id = {user_id}")
                 conn.commit()
                 return cursor.fetchone()[0]
 

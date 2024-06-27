@@ -9,7 +9,7 @@ class Master(commands.Cog):
             self.config = json.load(f)
         self.server_channel = self.bot.get_channel(self.config["logs"]["servers"])
 
-    @discord.slash_command(name="master", description= "Competence master commands")
+    @discord.slash_command(name ="master", description = "Competence master commands")
     async def reload(self,ctx: discord.ApplicationContext, cmd: discord.Option(str,"Enter master command", required= True)): # type: ignore
         # Check if invoker is an admin
         if ctx.author.id in self.config["admins"]:
@@ -18,9 +18,13 @@ class Master(commands.Cog):
                 if cmd.startswith("pull"):
                     os.system("git pull")
                     await ctx.respond(embed = embeds.Master.pull())
+                
+                # Bot info
+                elif cmd.startswith("info"):
+                    await ctx.respond(embed = embeds.Master.info(ctx))
 
                 # Load extension
-                if cmd.startswith("load"):
+                elif cmd.startswith("load"):
                     _, extension = cmd.split()
                     self.bot.load_extension(f"scripts.cogs.{extension}")
                     await ctx.respond(embed = embeds.Master.load())
@@ -28,8 +32,16 @@ class Master(commands.Cog):
                 # Reload extension
                 elif cmd.startswith("reload"):
                     _, extension = cmd.split()
-                    self.bot.reload_extension(f"scripts.cogs.{extension}")
-                    await ctx.respond(embed = embeds.Master.reload())
+                    # Reload all extensions
+                    if extension == "all":
+                        for extension in self.config["extensions"]:
+                            self.bot.reload_extension(f"scripts.cogs.{extension}")
+                        await ctx.respond(embed = embeds.Master.reload())
+
+                    # Reload a specific extension
+                    else:
+                        self.bot.reload_extension(f"scripts.cogs.{extension}")
+                        await ctx.respond(embed = embeds.Master.reload())
 
                 # Unload extension
                 elif cmd.startswith("unload"):
@@ -41,8 +53,8 @@ class Master(commands.Cog):
                 else:
                     await ctx.respond(embed = embeds.Master.not_found())
 
+            # Error
             except Exception as err:
-                # Error
                 await ctx.respond(embed = embeds.Master.error(err))
 
         # Author is not an admin

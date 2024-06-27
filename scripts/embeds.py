@@ -1,4 +1,5 @@
-from discord import Embed, Color
+from typing import Any
+from discord import Embed, Color, __version__
 
 class General:
     def ping(ctx):
@@ -13,6 +14,27 @@ class General:
         return embed
 
 class Master:
+    def info(ctx):
+        embed = (
+            Embed(
+                title= "Bot info",
+                description= "General bot info",
+                color= Color.blue()
+            )
+            .add_field(name= "Bot name", value= ctx.bot.user.name, inline= True)
+            .add_field(name= "Bot ID", value= ctx.bot.user.id, inline= "True")
+            .add_field(name= "\u200b", value= "\u200b")
+            .add_field(name= "Servers", value= len(ctx.bot.guilds), inline= True)
+            .add_field(name= "Users", value= len(ctx.bot.users), inline= True)
+            .add_field(name= "\u200b", value= "\u200b")
+            .add_field(name= "Commands", value= len(ctx.bot.commands), inline= True)
+            .add_field(name= "Pycord version", value= __version__, inline= True)
+            .add_field(name= "\u200b", value= "\u200b")
+
+            .set_footer(text= "Basic things about the bot")
+        )
+        return embed
+
     def pull():
         embed = (
             Embed(
@@ -23,13 +45,13 @@ class Master:
             .set_footer(text= "This thing pulls")
         )
         return embed
-    
+
     def load():
         embed = (
             Embed(
                 title= "Load extension",
                 description= "Extension loaded successfully.",
-                color = Color.brand_green()
+                color= Color.brand_green()
             )
             .set_footer(text= "Something new")
         )
@@ -40,7 +62,7 @@ class Master:
             Embed(
                 title= "Unload extension",
                 description= "Extension unloaded successfully.",
-                color = Color.brand_green()
+                color= Color.brand_green()
             )
             .set_footer(text= "Goodbye"
             )
@@ -52,7 +74,7 @@ class Master:
             Embed(
                 title= "Reload extension",
                 description= "Extension reloaded successfully.",
-                color = Color.brand_green()
+                color= Color.brand_green()
             )
             .set_footer(text= "Refreshed")
         )
@@ -63,7 +85,7 @@ class Master:
             Embed(
                 title= "Command not found",
                 description= "This command does not exist, or maybe you fucked up a parameter?",
-                color = Color.brand_red()
+                color= Color.brand_red()
             )
             .set_footer(text= "womp womp")
         )
@@ -74,7 +96,7 @@ class Master:
             Embed(
                 title= "Error",
                 description= err,
-                color = Color.brand_red()
+                color= Color.brand_red()
             )
             .set_footer(text= "Something went wrong")
         )
@@ -83,10 +105,51 @@ class Master:
     def unauthorised():
         embed = (
             Embed(
-                title= "Unathorized",
+                title = "Unathorized",
                 description= "You are not authorised to use this command.",
-                color = Color.brand_red()
+                color= Color.brand_red()
             )
             .set_footer(text= "Imagine having permissions 💀")
+        )
+        return embed
+    
+class Events:
+    def server_join(guild):
+        embed = (
+            Embed(
+                title= "Bot joined a new server",
+                color= Color.brand_green()
+            )
+            .add_field(name= "Server name", value= guild.name, inline= True)
+            .add_field(name= "Server ID", value= guild.id, inline= True)
+            .add_field(name= "\u200b", value= "\u200b")
+            .add_field(name= "Server owner", value= guild.owner, inline= True)
+            .add_field(name= "Server members", value= len(guild.members), inline= True)
+            .add_field(name= "\u200b", value= "\u200b")
+            .add_field(name= "Server region", value= guild.region, inline= True)
+            .add_field(name= "Server created at", value= guild.created_at, inline= True)
+            .add_field(name= "\u200b", value= "\u200b")
+
+            .set_footer(text= "Something new ig")
+        )
+        return embed
+    
+    def server_leave(guild):
+        embed = (
+            Embed(
+                title= "Bot left a server",
+                color= Color.brand_red()
+            )
+            .add_field(name= "Server name", value= guild.name, inline= True)
+            .add_field(name= "Server ID", value= guild.id, inline= True)
+            .add_field(name= "\u200b", value= "\u200b")
+            .add_field(name= "Server owner", value= guild.owner, inline= True)
+            .add_field(name= "Server members", value= len(guild.members), inline= True)
+            .add_field(name= "\u200b", value= "\u200b")
+            .add_field(name= "Server region", value= guild.region, inline= True)
+            .add_field(name= "Server created at", value= guild.created_at, inline= True)
+            .add_field(name= "\u200b", value= "\u200b")
+
+            .set_footer(text= "buh bye")
         )
         return embed

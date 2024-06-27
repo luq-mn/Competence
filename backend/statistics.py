@@ -1,5 +1,4 @@
 import sqlite3, os, datetime
-from main import get_datetime
 
 def get_datetime():
     return datetime.datetime.now().strftime("%d-%m-%Y %H:%M:%S")
