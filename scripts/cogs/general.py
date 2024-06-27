@@ -2,13 +2,8 @@ import discord
 from discord.ext import commands
 import scripts.embeds as embeds
 
-#Backend
-# from backend.accounts import AccountManager
-# am = AccountManager()
-# from backend.statistics import StatisticsTracker
-# st = StatisticsTracker()
-
-#Commands
+from backend import statistics
+st = statistics.StatisticsTracker()
 
 class General(commands.Cog):
     def __init__(self, bot):
@@ -19,6 +14,7 @@ class General(commands.Cog):
     async def ping(self, ctx: discord.ApplicationContext):
         # Get the bot latency
         await ctx.respond(embed= embeds.General.ping(ctx))
+        st.command_log(ctx.author.id, "ping", f"{round(self.bot.latency * 1000)}ms")
 
 def setup(bot):
     bot.add_cog(General(bot))
