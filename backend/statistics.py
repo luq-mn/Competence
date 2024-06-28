@@ -5,7 +5,7 @@ def get_datetime():
 
 class StatisticsTracker:
     def __init__(self):
-        self.db_name = f"{os.getcwd()}\\backend\\database\\statistics.db"
+        self.db_name = os.path.join(os.getcwd(), "backend", "database", "statistics.db")
 
         # Create table if it does not exist
         with sqlite3.connect(self.db_name) as conn:

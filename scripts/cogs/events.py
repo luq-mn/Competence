@@ -5,7 +5,7 @@ import scripts.embeds as embeds
 from backend import statistics
 st = statistics.StatisticsTracker()
 
-with open(f"{os.getcwd()}\\config.json", "r") as f:
+with open(os.path.join(os.getcwd(), "config.json"), "r") as f:
     config = json.load(f)
 
 class Events(commands.Cog):
