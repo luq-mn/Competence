@@ -29,6 +29,10 @@ class Master(commands.Cog):
                     await ctx.respond(embed = embeds.Master.info(ctx))
                     st.command_log(ctx.author.id, "info", f"{round(ctx.bot.latency * 1000)}ms")
 
+                # Close bot
+                elif cmd.startswith("close"):
+                    self.bot.close()
+
                 # Load extension
                 elif cmd.startswith("load"):
                     _, extension = cmd.split()
