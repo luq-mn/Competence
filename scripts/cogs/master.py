@@ -31,7 +31,7 @@ class Master(commands.Cog):
 
                 # Close bot
                 elif cmd.startswith("close"):
-                    self.bot.close()
+                    await self.bot.close()
 
                 # Load extension
                 elif cmd.startswith("load"):
