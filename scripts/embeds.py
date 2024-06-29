@@ -147,3 +147,13 @@ class Events:
             .set_footer(text= "buh bye")
         )
         return embed
+    
+class Joos:
+    def joos():
+        embed = (
+            Embed(
+                title= "Joos solves issues",
+                description= "<:joos:1256553567410720853>"
+            )
+            .set_footer(text= "cope")
+        )
