@@ -157,3 +157,54 @@ class Joos:
             )
             .set_footer(text= "cope")
         )
+        return embed
+
+
+class Accounts:
+    def account():
+        embed = (
+            Embed(
+                title= "Account overview",
+                color= Color.blue()
+            )
+        )
+        return embed
+    
+    def lock(state):
+        if state == "enabled":
+            embed = (
+                Embed(
+                    title= "Account locked",
+                    description= "Your account has been locked successfully",
+                    color= Color.brand_green()
+                )
+                .add_field(name= "Notice", value= "Please note that you may only use monetization commands once you've unlocked your account.")
+                
+                .set_footer(text= "It is safe now ig.")
+            )
+            return embed
+        
+        elif state == "disabled":
+            embed = (
+                Embed(
+                    title= "Account has been unlocked",
+                    description= "Your account has been unlocked successfully",
+                    color= Color.brand_green()
+                )
+                .set_footer(text= "You can now use monetization commands.")
+            )
+            return embed
+    
+        elif state == "locked":
+            embed = (
+                Embed(
+                    title= "This account is locked",
+                    description= "This account is locked from using monetization commands, as a security measure.",
+                    color= Color.brand_red()
+                )
+                .add_field(name= "How to unlock", value= "Use the `/lock [password]` command to unlock your account.")
+                .add_field(name= "I frogor my password!", value= "Join the discord server, and contact an admin to help you out.")
+
+                .set_footer(text= "Womp womp go unlock it")
+            )
+            return embed
