@@ -3,7 +3,7 @@
 An economy/currency focused Discord bot, made as a fun part-time project, using the [pycord](https://pycord.dev/) and built-in SQLite3 Python libraries.
 
 > [!WARNING]
-> This bot is under active development, and may not be functioning as intended. Expect regularmajorsignificant changes/overhauls.
+> This bot is under active development, and may not be functioning as intended. Expect overhauls and bugs, and changes without prior notice.
 
 ## Features
 
@@ -13,7 +13,12 @@ An economy/currency focused Discord bot, made as a fun part-time project, using 
 
 ### To-do
 
-- [ ] Account overview, upgrade
-- [ ] Enforce transfer cooldown, and flagging
-- [ ] Property backend
-- [ ] Property commands
+#### Commands
+
+- [ ] Account overview
+- [ ] Transfer cash to another user
+
+#### Backend
+
+- [ ] Enforce transfer cooldown, and account backend
+- [ ] Add all user in server when join

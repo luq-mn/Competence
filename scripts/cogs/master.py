@@ -29,6 +29,10 @@ class Master(commands.Cog):
                     await ctx.respond(embed = embeds.Master.info(ctx))
                     st.command_log(ctx.author.id, "info", f"{round(ctx.bot.latency * 1000)}ms")
 
+                # Set user account flag
+
+                # Reset database (owner only - luq.mn)
+
                 # Close bot
                 elif cmd.startswith("close"):
                     await self.bot.close()
