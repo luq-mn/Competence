@@ -36,8 +36,9 @@ class AccountManager:
     def init_account(self, user_id):
         with sqlite3.connect(self.db_name) as conn:
             with conn:
-                conn.execute("INSERT INTO users (user_id, flag, tier, access, xp) VALUES (?, ?, ?, ?, ?, ?)", (user_id, "clear", 1, "default", 0))
-                conn.execute("INSERT INTO currency (user_id, balance) VALUES (?, ?)", (user_id, 0))
+                conn.execute("INSERT INTO users (user_id, flag, tier, access, xp) VALUES (?, ?, ?, ?, ?)", (user_id, "clear", 1, "default", 0))
+                conn.execute("INSERT INTO security (user_id, password, lock) VALUES (?, ?, ?)", (user_id, "password", False))
+                # conn.execute("INSERT INTO currency (user_id, balance) VALUES (?, ?)", (user_id, 0))
                 conn.commit()
                 return True
 
@@ -86,7 +87,7 @@ class AccountManager:
                         self.set_password(user_id, password)
                     conn.execute(f"UPDATE security SET lock = True WHERE user_id = {user_id}")
                     conn.commit()
-                    return "locked"
+                    return "enabled"
     
     # Security - check if locked
     def check_lock(self, user_id):
