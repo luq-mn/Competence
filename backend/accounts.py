@@ -122,6 +122,10 @@ class AccountManager:
 
     # Security - set password
     def set_password(self, user_id, password):
+
+        if password == "":
+            password = "password"
+
         password = hashlib.sha512(password.encode())
         password = password.hexdigest()
 
