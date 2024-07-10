@@ -1,4 +1,4 @@
-import sqlite3, os
+import sqlite3, os, hashlib
 
 from .statistics import StatisticsTracker
 stats = StatisticsTracker()
@@ -10,10 +10,12 @@ class AccountManager:
         # Create the account table if it doesn't exist
         with sqlite3.connect(self.db_name) as conn:
             with conn:
-                conn.execute("CREATE TABLE IF NOT EXISTS users (user_id INTEGER PRIMARY KEY, flag TEXT, tier TEXT, access TEXT, xp INTEGER)")
-                conn.execute("CREATE TABLE IF NOT EXISTS currency (user_id INTEGER PRIMARY KEY, balance FLOAT)")
-                conn.execute("CREATE TABLE IF NOT EXISTS security (user_id INTEGER PRIMARY KEY, password TEXT, lock BOOLEAN DEFAULT FALSE)")
-                conn.commit()
+                # users table (user_id, access, tier, flag, and xp)
+                conn.execute("CREATE TABLE IF NOT EXISTS users (user_id INTEGER PRIMARY KEY, access TEXT, tier TEXT, flag TEXT, xp INTEGER)")
+                # security table (user_id, password, lock)
+                conn.execute("CREATE TABLE IF NOT EXISTS security (user_id INTEGER PRIMARY KEY, password TEXT, lock BOOLEAN)")
+                # settings
+                # conn.execute("CREATE TABLE IF NOT EXISTS settings ()")
 
     # Check if an account exists
     def check_exists(self, user_id):
@@ -25,13 +27,13 @@ class AccountManager:
                 # If account exists
                 if cursor.fetchone():
                     return True
-                # If account doesn't exist
+                # If account doesn't exist, create account
                 else:
-                    self.init(user_id)
+                    self.init_account(user_id)
                     return False
 
     # Initialise account
-    def init(self, user_id):
+    def init_account(self, user_id):
         with sqlite3.connect(self.db_name) as conn:
             with conn:
                 conn.execute("INSERT INTO users (user_id, flag, tier, access, xp) VALUES (?, ?, ?, ?, ?, ?)", (user_id, "clear", 1, "default", 0))
@@ -58,20 +60,31 @@ class AccountManager:
                 return cursor.fetchone()[0]
     
     # Security - toggle locking of account
-    def toggle_lock(self, user_id):
+    def toggle_lock(self, user_id, password):
         self.check_exists(user_id)
         with sqlite3.connect(self.db_name) as conn:
             with conn:
                 # Check if lock is true/false
                 lock = self.check_lock(user_id)
 
-                # Toggle lock
+                # Unlock
                 if lock == True:
-                    conn.execute(f"UPDATE users SET lock = False WHERE user_id = {user_id}")
-                    conn.commit()
-                    return "unlocked"
+                    check = self.check_password(user_id, password)
+
+                    # Check if password is valid
+                    if check == True:
+                        conn.execute(f"UPDATE security SET lock = False WHERE user_id = {user_id}")
+                        conn.commit()
+                        return "unlocked"
+                    else:
+                        return "wrong password"
+                
+                # Lock
                 else:
-                    conn.execute(f"UPDATE users SET lock = True WHERE user_id = {user_id}")
+                    # Only set new password if entered
+                    if password != "":
+                        self.set_password(user_id, password)
+                    conn.execute(f"UPDATE security SET lock = True WHERE user_id = {user_id}")
                     conn.commit()
                     return "locked"
     
@@ -80,7 +93,7 @@ class AccountManager:
         self.check_exists(user_id)
         with sqlite3.connect(self.db_name) as conn:
             with conn:
-                cursor = conn.execute(f"SELECT lock FROM users WHERE user_id = {user_id}")
+                cursor = conn.execute(f"SELECT lock FROM security WHERE user_id = {user_id}")
                 conn.commit()
                 lock = cursor.fetchone()[0]
 
@@ -90,5 +103,31 @@ class AccountManager:
                     return False
     
     # Security - check if password is correct
+    def check_password(self, user_id, password):
+        # Hash password
+        password = hashlib.sha512(password.encode())
+        password = password.hexdigest()
+
+        self.check_exists(user_id)
+        with sqlite3.connect(self.db_name) as conn:
+            with conn:
+                cursor = conn.execute(f"SELECT password FROM security WHERE user_id = {user_id}")
+                conn.commit()
+                password_db = cursor.fetchone()[0]
+
+                if password_db == password:
+                    return True
+                else:
+                    return False
 
     # Security - set password
+    def set_password(self, user_id, password):
+        password = hashlib.sha512(password.encode())
+        password = password.hexdigest()
+
+        self.check_exists(user_id)
+        with sqlite3.connect(self.db_name) as conn:
+            with conn:
+                conn.execute(f"UPDATE security SET password = '{password}' WHERE user_id = {user_id}")
+                conn.commit()
+                return True

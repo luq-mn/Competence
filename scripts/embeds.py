@@ -159,7 +159,6 @@ class Joos:
         )
         return embed
 
-
 class Accounts:
     def account():
         embed = (
@@ -184,7 +183,7 @@ class Accounts:
             )
             return embed
         
-        elif state == "disabled":
+        elif state == "unlocked":
             embed = (
                 Embed(
                     title= "Account has been unlocked",
@@ -195,6 +194,19 @@ class Accounts:
             )
             return embed
     
+        elif state == "wrong password":
+            embed = (
+                Embed(
+                    title= "Wrong password",
+                    description= "The password you entered is incorrect.",
+                    color= Color.brand_red()
+                )
+                .add_field(name= "I forgot my password!", value= "Join the discord server, and contact an admin to help you out.")
+                
+                .set_footer(text= "womp womp")
+            )
+            return embed
+
         elif state == "locked":
             embed = (
                 Embed(

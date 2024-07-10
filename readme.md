@@ -16,6 +16,7 @@ An economy/currency focused Discord bot, made as a fun part-time project, using 
 #### Commands
 
 - [ ] Account overview
+- [ ] Account locking
 - [ ] Transfer cash to another user
 
 #### Backend

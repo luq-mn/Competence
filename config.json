@@ -2,7 +2,8 @@
     "extensions": [
         "general",
         "master",
-        "events"
+        "events",
+        "joos"
     ],
     "admins": [
         813939364626169856,
