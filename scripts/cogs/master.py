@@ -21,13 +21,13 @@ class Master(commands.Cog):
                 if cmd.startswith("pull"):
                     os.system("git pull")
                     await ctx.respond(embed = embeds.Master.pull())
-                    st.command_log(ctx.author.id, "pull", f"{round(ctx.bot.latency * 1000)}ms")
-                    st.bot_log("git pull", "success")
+                    st.command_log(ctx.author.id, "pull", "success", round(self.bot.latency() * 1000))
+                    st.event_log("pull", "success")
                 
                 # Bot info
                 elif cmd.startswith("info"):
                     await ctx.respond(embed = embeds.Master.info(ctx))
-                    st.command_log(ctx.author.id, "info", f"{round(ctx.bot.latency * 1000)}ms")
+                    st.command_log(ctx.author.id, "info", "success", round(self.bot.latency() * 1000))
 
                 # Set user account flag
 
@@ -42,8 +42,8 @@ class Master(commands.Cog):
                     _, extension = cmd.split()
                     self.bot.load_extension(f"scripts.cogs.{extension}")
                     await ctx.respond(embed = embeds.Master.load())
-                    st.command_log(ctx.author.id, "load", f"{round(ctx.bot.latency * 1000)}ms")
-                    st.bot_log("load", extension)
+                    st.command_log(ctx.author.id, "load", extension, round(self.bot.latency() * 1000))
+                    st.event_log("load", extension)
 
                 # Reload extension
                 elif cmd.startswith("reload"):
@@ -53,23 +53,23 @@ class Master(commands.Cog):
                         for extension in self.config["extensions"]:
                             self.bot.reload_extension(f"scripts.cogs.{extension}")
                         await ctx.respond(embed = embeds.Master.reload())
-                        st.command_log(ctx.author.id, "reload all", f"{round(ctx.bot.latency * 1000)}ms")
-                        st.bot_log("reload all", "success")
+                        st.command_log(ctx.author.id, "reload", "all", round(self.bot.latency() * 1000))
+                        st.event_log("reload", "all")
 
                     # Reload a specific extension
                     else:
                         self.bot.reload_extension(f"scripts.cogs.{extension}")
                         await ctx.respond(embed = embeds.Master.reload())
-                        st.command_log(ctx.author.id, "reload", f"{round(ctx.bot.latency * 1000)}ms")
-                        st.bot_log("reload", extension)
+                        st.command_log(ctx.author.id, "reload", extension, round(self.bot.latency() * 1000))
+                        st.event_log("reload", extension)
 
                 # Unload extension
                 elif cmd.startswith("unload"):
                     _, extension = cmd.split()
                     self.bot.unload_extension(f"scripts.cogs.{extension}")
                     await ctx.respond(embed = embeds.Master.unload())
-                    st.command_log(ctx.author.id, "unload", f"{round(ctx.bot.latency * 1000)}ms")
-                    st.bot_log("unload", extension)
+                    st.command_log(ctx.author.id, "unload", extension, round(self.bot.latency() * 1000))
+                    st.event_log("unload", extension)
 
                 # No such command
                 else:

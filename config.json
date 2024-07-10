@@ -3,6 +3,7 @@
         "general",
         "master",
         "events",
+        "accounts",
         "joos"
     ],
     "admins": [

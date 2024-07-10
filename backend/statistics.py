@@ -9,11 +9,6 @@ class StatisticsTracker:
 
         # Create table if it does not exist
         with sqlite3.connect(self.db_name) as conn:
-            # with conn:
-            #     conn.execute("CREATE TABLE IF NOT EXISTS transactions (sender_id INTEGER, recipient_id INTEGER, amount INTEGER, note TEXT, timestamp TEXT)")
-            #     conn.execute("CREATE TABLE IF NOT EXISTS commands (command TEXT, user_id INTEGER, latency INTEGER, timestamp TEXT)")
-            #     conn.execute("CREATE TABLE IF NOT EXISTS bot (action TEXT, details TEXT, timestamp TEXT)")
-            #     conn.commit()
             with conn:
                 # commands table (author_id, command, output, latency, timestamp)
                 conn.execute("CREATE TABLE IF NOT EXISTS commands (author_id INTEGER, command TEXT, output TEXT, latency INTEGER, timestamp TEXT)")
@@ -23,7 +18,7 @@ class StatisticsTracker:
                 conn.execute("CREATE TABLE IF NOT EXISTS transactions (sender_id INTEGER, recipient_id INTEGER, currency TEXT, amount FLOAT, description TEXT, timestamp TEXT)")
     
     # Log bot actions and master commands
-    def bot_log(self, action, details):
+    def event_log(self, action, details):
         with sqlite3.connect(self.db_name) as conn:
             with conn:
                 conn.execute("INSERT INTO events (type, details, timestamp) VALUES (?, ?, ?)", (action, details, get_datetime()))
