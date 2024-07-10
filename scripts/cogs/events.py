@@ -16,13 +16,13 @@ class Events(commands.Cog):
     async def on_guild_join(self, guild):
         channel = self.bot.get_channel(config["logs"]["servers"])
         await channel.send(embed= embeds.Events.server_join(guild))
-        st.bot_log("server join", guild.id)
+        st.event_log("server join", guild.id)
         
     @commands.Cog.listener()
     async def on_guild_remove(self, guild):
         channel = self.bot.get_channel(config["logs"]["servers"])
         await channel.send(embed= embeds.Events.server_leave(guild))
-        st.bot_log("server leave", guild.id)
+        st.event_log("server leave", guild.id)
 
 def setup(bot):
     bot.add_cog(Events(bot))

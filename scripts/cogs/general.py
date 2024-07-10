@@ -14,7 +14,7 @@ class General(commands.Cog):
     async def ping(self, ctx: discord.ApplicationContext):
         # Get the bot latency
         await ctx.respond(embed= embeds.General.ping(ctx))
-        st.command_log(ctx.author.id, "ping", f"{round(self.bot.latency * 1000)}ms")
+        st.command_log(ctx.author.id, "/ping", "success", round(ctx.bot.latency * 1000))
 
 def setup(bot):
     bot.add_cog(General(bot))
