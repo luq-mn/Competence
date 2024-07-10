@@ -105,7 +105,7 @@ class Master:
     def unauthorised():
         embed = (
             Embed(
-                title = "Unathorized",
+                title = "Unauthorized",
                 description= "You are not authorised to use this command.",
                 color= Color.brand_red()
             )
@@ -169,36 +169,36 @@ class Accounts:
         )
         return embed
     
-    def lock_unlocked():
+    def lock_disabled():
         embed = (
                 Embed(
-                    title= "Account has been unlocked",
+                    title= "Account unlocked",
                     description= "Your account has been unlocked successfully",
                     color= Color.brand_green()
                 )
-                .set_footer(text= "You can now use monetization commands.")
+                .set_footer(text= "Monetization access is now enabled")
             )
         return embed
     
     def lock_enabled():
         embed = (
                 Embed(
-                    title= "Account has been locked",
+                    title= "Account locked",
                     description= "Your account has been locked successfully",
                     color= Color.brand_green()
                 )
-                .set_footer(text= "You can no longer use monetization commands.")
+                .set_footer(text= "Monetization access is now disabled")
             )
         return embed
     
     def lock_wrong_password():
         embed = (
                 Embed(
-                    title= "Wrong password",
-                    description= "The password you entered is incorrect.",
+                    title= "Invalid password",
+                    description= "The password you entered is incorrect",
                     color= Color.brand_red()
                 )
-                .add_field(name= "I forgot my password!", value= "Join the discord server, and contact an admin to help you out.")
+                .add_field(name= "I forgot my password!", value= "Join the discord server, and contact an admin to help you out.", inline= True)
                 
                 .set_footer(text= "womp womp")
             )
@@ -208,11 +208,11 @@ class Accounts:
         embed = (
                 Embed(
                     title= "This account is locked",
-                    description= "This account is locked from using monetization commands, as a security measure.",
+                    description= "Your account is locked, supposedly by you, as a security measure.",
                     color= Color.brand_red()
                 )
-                .add_field(name= "How to unlock", value= "Use the `/lock [password]` command to unlock your account.")
-                .add_field(name= "I frogor my password!", value= "Join the discord server, and contact an admin to help you out.")
+                .add_field(name= "How to unlock", value= "Use the `/lock [password]` command to unlock your account.", inline= True)
+                .add_field(name= "I frogor my password!", value= "Join the discord server, and contact an admin to help you out.", inline= True)
 
                 .set_footer(text= "Womp womp go unlock it")
             )

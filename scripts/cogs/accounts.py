@@ -13,7 +13,7 @@ class Accounts(commands.Cog):
     async def account(self, ctx):
         locked = am.check_lock(ctx.author.id)
         if locked:
-            await ctx.respond(embed = embeds.Accounts.lock_locked())
+            await ctx.respond(embed = embeds.Accounts.lock_locked(), ephemeral=True)
         else:
             await ctx.respond("WIP")
 
@@ -22,22 +22,22 @@ class Accounts(commands.Cog):
         lock = am.toggle_lock(ctx.author.id, password)
 
         if lock == "unlocked":
-            await ctx.respond(embed = embeds.Accounts.lock_unlocked())
+            await ctx.respond(embed = embeds.Accounts.lock_disabled(), ephemeral=True)
             st.command_log(ctx.author.id, "/lock", "unlocked", round(ctx.bot.latency * 1000))
 
         elif lock == "enabled":
-            await ctx.respond(embed = embeds.Accounts.lock_enabled())
+            await ctx.respond(embed = embeds.Accounts.lock_enabled(), ephemeral=True)
             st.command_log(ctx.author.id, "/lock", "locked", round(ctx.bot.latency * 1000))
 
         elif lock == "wrong password":
-            await ctx.respond(embed = embeds.Accounts.lock_wrong_password())
+            await ctx.respond(embed = embeds.Accounts.lock_wrong_password(), ephemeral=True)
             st.command_log(ctx.author.id, "/lock", "wrong password", round(ctx.bot.latency * 1000))
 
     @discord.slash_command(name = "settings", description = "Account settings")
     async def settings(self, ctx):
         locked = am.check_lock(ctx.author.id)
         if locked:
-            await ctx.respond(embed = embeds.Accounts.lock_locked())
+            await ctx.respond(embed = embeds.Accounts.lock_locked(), ephemeral=True)
         else:
             await ctx.respond("WIP")
 
