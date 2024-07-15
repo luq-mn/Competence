@@ -38,6 +38,12 @@ class Master(commands.Cog):
                         await ctx.respond(embed = embeds.Master.info(ctx))
                         st.command_log(ctx.author.id, "info", "success", round(self.bot.latency * 1000))
 
+                    # Add everyone to bot database
+                    elif cmd.startswith("members"):
+                        for guild in ctx.bot.guilds:
+                            for member in guild.members:
+                                am.check_exists(member.id)
+
                     # Set user account flag
 
                     # Reset database (owner only - luq.mn)
