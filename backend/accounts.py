@@ -1,7 +1,7 @@
 import sqlite3, os, hashlib
 
 from .statistics import StatisticsTracker
-stats = StatisticsTracker()
+st = StatisticsTracker()
 
 class AccountManager:
     def __init__(self):
@@ -40,6 +40,8 @@ class AccountManager:
                 conn.execute("INSERT INTO security (user_id, password, lock) VALUES (?, ?, ?)", (user_id, "password", False))
                 # conn.execute("INSERT INTO currency (user_id, balance) VALUES (?, ?)", (user_id, 0))
                 conn.commit()
+                st.event_log("account init", user_id)
+                
                 return True
 
     # Get account data
