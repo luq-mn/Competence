@@ -78,9 +78,9 @@ class AccountManager:
                     if check == True:
                         conn.execute(f"UPDATE security SET lock = False WHERE user_id = {user_id}")
                         conn.commit()
-                        return "unlocked"
+                        return "the Robber has Fucking Broke In"
                     else:
-                        return "wrong password"
+                        return "the Robber has Fucking failed, lock him Out"
                 
                 # Lock
                 else:
