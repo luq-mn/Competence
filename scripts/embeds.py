@@ -42,26 +42,26 @@ class Master:
                 description= "Code pulled from the Competence repo",
                 color= Color.brand_green()
             )
-            .set_footer(text= "This thing pulls")
+            .set_footer(text= "This thing pulls you")
         )
         return embed
 
     def load():
         embed = (
             Embed(
-                title= "Load extension",
+                title= "extend Yourself",
                 description= "Extension loaded successfully.",
                 color= Color.brand_green()
             )
-            .set_footer(text= "Something new")
+            .set_footer(text= "Adjustments may require a reboot to apply.")
         )
         return embed
     
     def unload():
         embed = (
             Embed(
-                title= "Unload extension",
-                description= "Extension unloaded successfully.",
+                title= "Unload Unload Unload Unload Unload",
+                description= "Extension unloaded.",
                 color= Color.brand_green()
             )
             .set_footer(text= "Goodbye"
@@ -72,33 +72,33 @@ class Master:
     def reload():
         embed = (
             Embed(
-                title= "Reload extension",
+                title= "reLoad Yourself",
                 description= "Extension reloaded successfully.",
                 color= Color.brand_green()
             )
-            .set_footer(text= "Refreshed")
+            .set_footer(text= "Adjustments may take 1-2 days to apply.")
         )
         return embed
     
     def not_found():
         embed = (
             Embed(
-                title= "Command not found",
-                description= "This command does not exist, or maybe you fucked up a parameter?",
+                title= "not Found",
+                description= "you Messed up, Robert",
                 color= Color.brand_red()
             )
-            .set_footer(text= "womp womp")
+            .set_footer(text= "you Messed up you Messed up you Messed up you Messed up you Messed up you Messed up you Messed up you Messed up")
         )
         return embed
 
     def error(err):
         embed = (
             Embed(
-                title= "Error",
+                title= "Uh Oh",
                 description= err,
                 color= Color.brand_red()
             )
-            .set_footer(text= "Something went wrong")
+            .set_footer(text= "you Messed up")
         )
         return embed
     
